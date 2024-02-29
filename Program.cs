@@ -21,77 +21,77 @@ namespace Lab03
     }
     public class SquareMatrix : IComparable, ICloneable
     {
-        private int size { get; set; }
-        private double[,] matrix;
-        public SquareMatrix(int size)
+        private int _size { get; set; }
+        private double[,] _matrix;
+        public SquareMatrix(int _size)
         {
-            this.size = size;
-            matrix = new double[this.size, this.size];
+            this._size = _size;
+            _matrix = new double[this._size, this._size];
             RandomMatrix();
         }
 
         public void RandomMatrix()
         {
             Random RandomNumber = new Random();
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    matrix[rowIndex, columnIndex] = RandomNumber.Next(-10, 10);
+                    _matrix[rowIndex, columnIndex] = RandomNumber.Next(-10, 10);
                 }
             }
         }
         public void CustomMatrix()
         {
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    matrix[rowIndex, columnIndex] = double.Parse(Console.ReadLine());
+                    _matrix[rowIndex, columnIndex] = double.Parse(Console.ReadLine());
                 }
             }
         }
         public void DiagonalMatrix()
         {
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
                     if (rowIndex == columnIndex)
                     {
-                        matrix[rowIndex, columnIndex] = double.Parse(Console.ReadLine());
+                        _matrix[rowIndex, columnIndex] = double.Parse(Console.ReadLine());
                     }
                     else
                     {
-                        matrix[rowIndex, columnIndex] = 0;
+                        _matrix[rowIndex, columnIndex] = 0;
                     }
                 }
             }
         }
         public void IdentityMatrix()
         {
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
                     if (rowIndex == columnIndex)
                     {
-                        matrix[rowIndex, columnIndex] = 1;
+                        _matrix[rowIndex, columnIndex] = 1;
                     }
                     else
                     {
-                        matrix[rowIndex, columnIndex] = 0;
+                        _matrix[rowIndex, columnIndex] = 0;
                     }
                 }
             }
         }
         public void NullMatrix()
         {
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    matrix[rowIndex, columnIndex] = 0;
+                    _matrix[rowIndex, columnIndex] = 0;
                 }
             }
         }
@@ -101,15 +101,15 @@ namespace Lab03
             if (other is SquareMatrix)
             {
                 var comparedMatrix = other as SquareMatrix;
-                if (size != comparedMatrix.size)
+                if (_size != comparedMatrix._size)
                 {
                     return false;
                 }
-                for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+                for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
                 {
-                    for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                    for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                     {
-                        if (matrix[rowIndex, columnIndex] != comparedMatrix.matrix[rowIndex, columnIndex])
+                        if (_matrix[rowIndex, columnIndex] != comparedMatrix._matrix[rowIndex, columnIndex])
                         {
                             return false;
                         }
@@ -133,18 +133,18 @@ namespace Lab03
                 double thisMatrixWeight, comparedMatrixWeight;
                 thisMatrixWeight = 0;
                 comparedMatrixWeight = 0;
-                for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+                for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
                 {
-                    for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                    for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                     {
-                        thisMatrixWeight += matrix[rowIndex, columnIndex];
+                        thisMatrixWeight += _matrix[rowIndex, columnIndex];
                     }
                 }
-                for (int rowIndex = 0; rowIndex < comparedMatrix.size; ++rowIndex)
+                for (int rowIndex = 0; rowIndex < comparedMatrix._size; ++rowIndex)
                 {
-                    for (int columnIndex = 0; columnIndex < comparedMatrix.size; ++columnIndex)
+                    for (int columnIndex = 0; columnIndex < comparedMatrix._size; ++columnIndex)
                     {
-                        comparedMatrixWeight += comparedMatrix.matrix[rowIndex, columnIndex];
+                        comparedMatrixWeight += comparedMatrix._matrix[rowIndex, columnIndex];
                     }
                 }
                 if (thisMatrixWeight == comparedMatrixWeight)
@@ -165,20 +165,20 @@ namespace Lab03
 
         public static SquareMatrix operator +(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            if (firstMatrix.size != secondMatrix.size)
+            if (firstMatrix._size != secondMatrix._size)
             {
                 throw new DifferentMatrixSizesException("Матрицы не соразмерны");
             }
 
-            int size = firstMatrix.size;
-            SquareMatrix resultMatrix = new SquareMatrix(size);
+            int _size = firstMatrix._size;
+            SquareMatrix resultMatrix = new SquareMatrix(_size);
             resultMatrix.NullMatrix();
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    resultMatrix.matrix[rowIndex, columnIndex] = firstMatrix.matrix[rowIndex, columnIndex] + secondMatrix.matrix[rowIndex, columnIndex];
+                    resultMatrix._matrix[rowIndex, columnIndex] = firstMatrix._matrix[rowIndex, columnIndex] + secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
             return resultMatrix;
@@ -186,20 +186,20 @@ namespace Lab03
 
         public static SquareMatrix operator -(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            if (firstMatrix.size != secondMatrix.size)
+            if (firstMatrix._size != secondMatrix._size)
             {
                 throw new DifferentMatrixSizesException("Матрицы не соразмерны");
             }
 
-            int size = firstMatrix.size;
-            SquareMatrix resultMatrix = new SquareMatrix(size);
+            int _size = firstMatrix._size;
+            SquareMatrix resultMatrix = new SquareMatrix(_size);
             resultMatrix.NullMatrix();
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    resultMatrix.matrix[rowIndex, columnIndex] = firstMatrix.matrix[rowIndex, columnIndex] - secondMatrix.matrix[rowIndex, columnIndex];
+                    resultMatrix._matrix[rowIndex, columnIndex] = firstMatrix._matrix[rowIndex, columnIndex] - secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
             return resultMatrix;
@@ -207,20 +207,20 @@ namespace Lab03
 
         public static SquareMatrix operator *(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            if (firstMatrix.size != secondMatrix.size)
+            if (firstMatrix._size != secondMatrix._size)
             {
                 throw new DifferentMatrixSizesException("Матрицы не соразмерны");
             }
 
-            int size = firstMatrix.size;
-            SquareMatrix resultMatrix = new SquareMatrix(size);
+            int _size = firstMatrix._size;
+            SquareMatrix resultMatrix = new SquareMatrix(_size);
             resultMatrix.NullMatrix();
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    resultMatrix.matrix[rowIndex, columnIndex] = firstMatrix.matrix[rowIndex, columnIndex] * secondMatrix.matrix[rowIndex, columnIndex];
+                    resultMatrix._matrix[rowIndex, columnIndex] = firstMatrix._matrix[rowIndex, columnIndex] * secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
             return resultMatrix;
@@ -228,15 +228,15 @@ namespace Lab03
 
         public static bool operator <(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            int size = firstMatrix.size;
+            int _size = firstMatrix._size;
             double firstMatrixWeight = 0, secondMatrixWeight = 0;
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    firstMatrixWeight += firstMatrix.matrix[rowIndex, columnIndex];
-                    secondMatrixWeight += secondMatrix.matrix[rowIndex, columnIndex];
+                    firstMatrixWeight += firstMatrix._matrix[rowIndex, columnIndex];
+                    secondMatrixWeight += secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
 
@@ -249,15 +249,15 @@ namespace Lab03
 
         public static bool operator >(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            int size = firstMatrix.size;
+            int _size = firstMatrix._size;
             double firstMatrixWeight = 0, secondMatrixWeight = 0;
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    firstMatrixWeight += firstMatrix.matrix[rowIndex, columnIndex];
-                    secondMatrixWeight += secondMatrix.matrix[rowIndex, columnIndex];
+                    firstMatrixWeight += firstMatrix._matrix[rowIndex, columnIndex];
+                    secondMatrixWeight += secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
 
@@ -270,15 +270,15 @@ namespace Lab03
 
         public static bool operator <=(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            int size = firstMatrix.size;
+            int _size = firstMatrix._size;
             double firstMatrixWeight = 0, secondMatrixWeight = 0;
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    firstMatrixWeight += firstMatrix.matrix[rowIndex, columnIndex];
-                    secondMatrixWeight += secondMatrix.matrix[rowIndex, columnIndex];
+                    firstMatrixWeight += firstMatrix._matrix[rowIndex, columnIndex];
+                    secondMatrixWeight += secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
 
@@ -291,15 +291,15 @@ namespace Lab03
 
         public static bool operator >=(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            int size = firstMatrix.size;
+            int _size = firstMatrix._size;
             double firstMatrixWeight = 0, secondMatrixWeight = 0;
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    firstMatrixWeight += firstMatrix.matrix[rowIndex, columnIndex];
-                    secondMatrixWeight += secondMatrix.matrix[rowIndex, columnIndex];
+                    firstMatrixWeight += firstMatrix._matrix[rowIndex, columnIndex];
+                    secondMatrixWeight += secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
 
@@ -312,15 +312,15 @@ namespace Lab03
 
         public static bool operator ==(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            int size = firstMatrix.size;
+            int _size = firstMatrix._size;
             double firstMatrixWeight = 0, secondMatrixWeight = 0;
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    firstMatrixWeight += firstMatrix.matrix[rowIndex, columnIndex];
-                    secondMatrixWeight += secondMatrix.matrix[rowIndex, columnIndex];
+                    firstMatrixWeight += firstMatrix._matrix[rowIndex, columnIndex];
+                    secondMatrixWeight += secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
 
@@ -333,15 +333,15 @@ namespace Lab03
 
         public static bool operator !=(SquareMatrix firstMatrix, SquareMatrix secondMatrix)
         {
-            int size = firstMatrix.size;
+            int _size = firstMatrix._size;
             double firstMatrixWeight = 0, secondMatrixWeight = 0;
 
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    firstMatrixWeight += firstMatrix.matrix[rowIndex, columnIndex];
-                    secondMatrixWeight += secondMatrix.matrix[rowIndex, columnIndex];
+                    firstMatrixWeight += firstMatrix._matrix[rowIndex, columnIndex];
+                    secondMatrixWeight += secondMatrix._matrix[rowIndex, columnIndex];
                 }
             }
 
@@ -354,7 +354,7 @@ namespace Lab03
 
         public static bool operator true(SquareMatrix squareMatrix)
         {
-            if (squareMatrix.size != 0)
+            if (squareMatrix._size != 0)
             {
                 return true;
             }
@@ -363,7 +363,7 @@ namespace Lab03
 
         public static bool operator false(SquareMatrix squareMatrix)
         {
-            if (squareMatrix.size != 0)
+            if (squareMatrix._size != 0)
             {
                 return false;
             }
@@ -372,12 +372,12 @@ namespace Lab03
 
         public SquareMatrix GetSubMatrix(int columnFromMatrix, SquareMatrix mainMatrix)
         {
-            SquareMatrix subMatrix = new SquareMatrix(mainMatrix.size - 1);
-            for (int rowIndex = 0; rowIndex < subMatrix.size; ++rowIndex)
+            SquareMatrix subMatrix = new SquareMatrix(mainMatrix._size - 1);
+            for (int rowIndex = 0; rowIndex < subMatrix._size; ++rowIndex)
             {
                 for (int columnIndex = 0; columnIndex < columnFromMatrix; ++columnIndex)
                 {
-                    subMatrix.matrix[rowIndex, columnIndex] = mainMatrix.matrix[rowIndex + 1, columnIndex + 1];
+                    subMatrix._matrix[rowIndex, columnIndex] = mainMatrix._matrix[rowIndex + 1, columnIndex + 1];
                 }
             }
             return subMatrix;
@@ -388,20 +388,20 @@ namespace Lab03
         {
             double theRealDeterminant = 0;
 
-            if (squareMatrix.size == 1)
+            if (squareMatrix._size == 1)
             {
-                theRealDeterminant = squareMatrix.matrix[0, 0];
+                theRealDeterminant = squareMatrix._matrix[0, 0];
             }
-            else if (squareMatrix.size == 2)
+            else if (squareMatrix._size == 2)
             {
-                theRealDeterminant = squareMatrix.matrix[0, 0] * squareMatrix.matrix[1, 1] - squareMatrix.matrix[0, 1] * squareMatrix.matrix[1, 0];
+                theRealDeterminant = squareMatrix._matrix[0, 0] * squareMatrix._matrix[1, 1] - squareMatrix._matrix[0, 1] * squareMatrix._matrix[1, 0];
             }
             else
             {
-                for (int columnIndex = 0; columnIndex < squareMatrix.size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < squareMatrix._size; ++columnIndex)
                 {
                     double minor = Convert.ToInt32(Math.Pow(-1, columnIndex));
-                    double ColumnNumber = minor * squareMatrix.matrix[0, columnIndex];
+                    double ColumnNumber = minor * squareMatrix._matrix[0, columnIndex];
                     SquareMatrix SubMatrix = GetSubMatrix(columnIndex, squareMatrix);
 
                     theRealDeterminant += ColumnNumber * Determinate(SubMatrix);
@@ -413,11 +413,11 @@ namespace Lab03
         public override string ToString()
         {
             StringBuilder matrixStringBuilder = new StringBuilder();
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    matrixStringBuilder.AppendFormat("{0, 4} ", matrix[rowIndex, columnIndex]);
+                    matrixStringBuilder.AppendFormat("{0, 4} ", _matrix[rowIndex, columnIndex]);
                 }
                 matrixStringBuilder.Append('\n');
             }
@@ -426,8 +426,14 @@ namespace Lab03
 
         public object Clone()
         {
-            SquareMatrix clonedMatrix = new SquareMatrix(size);
-            clonedMatrix.matrix = matrix;
+            SquareMatrix clonedMatrix = new SquareMatrix(_size);
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
+            {
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
+                {
+                    clonedMatrix._matrix[rowIndex, columnIndex] = _matrix[rowIndex, columnIndex];
+                }
+            }
             return clonedMatrix;
         }
 
@@ -435,11 +441,11 @@ namespace Lab03
         {
             double theRealDeterminant = Determinate(this);
             SquareMatrix reversedMatrix = Clone() as SquareMatrix;
-            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
+            for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
-                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
+                for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    reversedMatrix.matrix[rowIndex, columnIndex] = matrix[rowIndex, columnIndex] * theRealDeterminant;
+                    reversedMatrix._matrix[rowIndex, columnIndex] = _matrix[rowIndex, columnIndex] * theRealDeterminant;
                 }
             }
             return reversedMatrix;
