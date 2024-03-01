@@ -32,15 +32,16 @@ namespace Lab03
 
         public void RandomMatrix()
         {
-            Random RandomNumber = new Random();
+           static Random _RandomNumber = new Random();
             for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
             {
                 for (int columnIndex = 0; columnIndex < _size; ++columnIndex)
                 {
-                    _matrix[rowIndex, columnIndex] = RandomNumber.Next(-10, 10);
+                    _matrix[rowIndex, columnIndex] = _RandomNumber.Next(-10, 10);
                 }
             }
         }
+
         public void CustomMatrix()
         {
             for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
@@ -51,6 +52,7 @@ namespace Lab03
                 }
             }
         }
+
         public void DiagonalMatrix()
         {
             for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
@@ -68,6 +70,7 @@ namespace Lab03
                 }
             }
         }
+
         public void IdentityMatrix()
         {
             for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
@@ -85,6 +88,7 @@ namespace Lab03
                 }
             }
         }
+
         public void NullMatrix()
         {
             for (int rowIndex = 0; rowIndex < _size; ++rowIndex)
@@ -125,6 +129,7 @@ namespace Lab03
         {
             return base.GetHashCode();
         }
+
         public int CompareTo(object other)
         {
             if (other is SquareMatrix)
@@ -382,8 +387,7 @@ namespace Lab03
             }
             return subMatrix;
         }
-
-
+
         public double Determinate(SquareMatrix squareMatrix)
         {
             double theRealDeterminant = 0;
@@ -451,6 +455,7 @@ namespace Lab03
             return reversedMatrix;
         }
     }
+
     internal class Program
     {
         static void Main(string[] args)
